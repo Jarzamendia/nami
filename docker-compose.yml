@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  wordpress:
+    image: jarzamendia/projectnami:v1
+    ports:
+      - 8080:80
+    networks:
+      - backend
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu 
+    environment:
+     - ACCEPT_EULA=Y
+     - SA_PASSWORD=yourStrong(!)Password
+     - MSSQL_PID=Express
+    networks:
+        - backend
+    ports:
+      - 1433:1433
+  adminer:
+    image: jarzamendia/adminer:v1
+    networks:
+        - backend
+    ports:
+      - 8081:8080
+networks:
+  backend:
